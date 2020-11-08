@@ -1,0 +1,14 @@
+version: "3.7"
+
+networks:
+    microservice:
+        external:
+            name: microservice
+
+services:
+    sleepy_worker:
+        build:
+            dockerfile: Dockerfile
+            context: ./
+        networks:
+            - microservice
