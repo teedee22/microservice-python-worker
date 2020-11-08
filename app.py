@@ -6,6 +6,8 @@ from nats.aio.client import Client as NATS
 async def get_message(msg):
     payload = json.loads(msg.data)
     print(u'\u2753', end="")
+    print(payload["count"])
+    await asyncio.sleep(payload["count"])
     print(payload)
 
 
@@ -14,6 +16,7 @@ async def run(event_loop):
     await nc.connect(nats_host, loop=event_loop)
     print("hello")
     await nc.subscribe("foobar", "foobar", get_message)
+    await nc.subscribe("foobar2", "foobar2", get_message)
 
 if __name__=="__main__":
     try:
