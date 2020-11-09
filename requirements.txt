@@ -1,1 +1,2 @@
 asyncio-nats-client==0.11.2
+requests
