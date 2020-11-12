@@ -9,10 +9,10 @@ caption <b>System Interaction Diagram</b>
 footer  Last Update: 2020-11-12
 
 actor user as "User"
-boundary http_ingress as "HTTP Ingress" #FFCD28
+boundary http_ingress as "HTTP Ingress"
 queue nats as "Nats"
 frame "You are here" {
-entity python_worker as "Python Worker"
+entity python_worker as "Python Worker" #FFCD28
 }
 entity python_api as "Python API"
 
