@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: sleepy-worker
-        image: teedee22/m-sleepy-worker:latest
+        image: registry.gitlab.com/teedee22/sleepy-worker
         imagePullPolicy: Always
         #ports:
         # - containerPort: 5001
