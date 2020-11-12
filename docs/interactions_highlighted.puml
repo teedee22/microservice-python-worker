@@ -1,0 +1,28 @@
+@startuml interaction-diagram
+
+
+skinparam frame {
+    borderColor Red
+}
+
+caption <b>System Interaction Diagram</b> 
+footer  Last Update: 2020-11-12
+
+actor user as "User"
+boundary http_ingress as "HTTP Ingress" #FFCD28
+queue nats as "Nats"
+frame "You are here" {
+entity python_worker as "Python Worker"
+}
+entity python_api as "Python API"
+
+
+user -> http_ingress : <i>Http into k8s</i>
+http_ingress -> nats 
+python_worker ..> nats 
+nats ..> python_worker
+
+python_worker -> python_api
+python_api -> python_worker
+
+@enduml
