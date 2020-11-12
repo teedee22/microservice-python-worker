@@ -7,9 +7,9 @@ def generate_calls(number):
   for i in range(number):
     endpoint = random.randint(1,2)
     if endpoint == 1:
-      url = "http://127.0.0.1:4000/new2"
+      url = "http://34.76.117.74:4000/new2"
     else:
-      url = "http://127.0.0.1:4000/new"
+      url = "http://34.76.117.74:4000/new"
     number = random.randint(1,100) / 100
     #number = 0.2
     body = {"message": "hello Toby", "count": number, "id": i}
