@@ -1,3 +1,6 @@
+variables:
+  KUBE_NAMESPACE: default
+
 stages:
   - test
   - build
