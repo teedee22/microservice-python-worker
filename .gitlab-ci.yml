@@ -1,11 +1,27 @@
+stages:
+  - test
+  - build
+  - deploy
+
+test:
+  stage: test
+  script: echo "Running tests"
+
 build:
-  image: docker:19.03.12
   stage: build
-  services:
-    - docker:19.03.12-dind
-  variables:
-    IMAGE_TAG: $CI_REGISTRY_IMAGE:latest
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint:
+    - ''
   script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build -t $IMAGE_TAG .
-    - docker push $IMAGE_TAG
+  - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+  - "/kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE"
+
+deploy_staging:
+  stage: deploy
+  image: bitnami/kubectl:latest
+  script:
+    - kubectl apply -f sleepy-worker-k8s.yaml
+  environment:
+    name: staging
+    url: http://34.76.117.74:4000/
