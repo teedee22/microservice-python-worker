@@ -1,37 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sleepy-worker
+  name: python-worker
   labels:
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sleepy-worker
+      app: python-worker
   template:
     metadata:
       labels:
-        app: sleepy-worker
+        app: python-worker
     spec:
       containers:
-      - name: sleepy-worker
-        image: registry.gitlab.com/teedee22/sleepy-worker
+      - name: python-worker
+        image: registry.gitlab.com/teedeemicro/python-worker:0.0.2
         imagePullPolicy: Always
         #ports:
         # - containerPort: 5001
         env:
         - name: PYTHONUNBUFFERED
           value: "1"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: sleepy-worker
-spec:
-  selector:
-    app: sleepy-worker
-  # type: LoadBalancer
-  ports:
-    - protocol: TCP
-      port: 5001
-      targetPort: 5001
