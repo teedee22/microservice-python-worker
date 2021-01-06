@@ -12,7 +12,7 @@ async def get_message(msg):
     print(payload)
 
 async def get_message_api(msg):
-    url = "http://sleepy-api:5001/new"
+    url = "http://python-api:5001/new"
     # payload = {}
     # headers = {}
     future = loop.run_in_executor(None, requests.get, url)
