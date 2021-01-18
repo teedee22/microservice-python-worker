@@ -1,6 +1,9 @@
 import asyncio
 import json
 import requests
+import os
+
+HOSTNAME = os.environ.get("HOSTNAME") + ": "
 
 from nats.aio.client import Client as NATS
 
@@ -18,15 +21,15 @@ async def get_message_api(msg):
     future = loop.run_in_executor(None, requests.get, url)
     #response = requests.request("GET", url, headers=headers, data = payload)
     response = await future
-    print(response.text.encode('utf8'))
+    print(HOSTNAME + response.text.encode('utf8'))
     payload = json.loads(msg.data)
-    print(payload["id"])
+    print(HOSTNAME + payload["id"])
 
 
 async def run(event_loop):
     nc = NATS()
     await nc.connect(nats_host, loop=event_loop)
-    print("hello")
+    print(HOSTNAME+ "hello")
     await nc.subscribe("foobar", "foobar", get_message)
     await nc.subscribe("foobar2", "foobar2", get_message_api)
 
