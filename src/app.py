@@ -21,9 +21,10 @@ async def get_message_api(msg):
     future = loop.run_in_executor(None, requests.get, url)
     #response = requests.request("GET", url, headers=headers, data = payload)
     response = await future
-    print(HOSTNAME + response.text.encode('utf8'))
+    print(HOSTNAME, end ="")
+    print(response.text.encode('utf8'))
     payload = json.loads(msg.data)
-    print(HOSTNAME + payload["id"])
+    print(payload["id"])
 
 
 async def run(event_loop):
